@@ -7,7 +7,7 @@ const Sauce = () => {
     setName(e.target.elements.name.value);
   };
   return (
-    <div>
+    <div className="mini-app">
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Your name: </label>
         <input id="name" type="text" />

@@ -1,4 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .App {
   font-family: sans-serif;
   text-align: center;
+  background: #ececec;
+  min-height: 100vh;
+  padding-top: 1px;
+}
+
+.mini-app {
+  background: white;
+  padding: 10vh 10vw;
+  border: 1px solid #ccc;
+  margin: 2em;
 }
