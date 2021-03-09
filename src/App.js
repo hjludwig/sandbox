@@ -15,9 +15,15 @@ export default function App() {
         <input id="name" type="text" />
         <button type="submit">Submit</button>
       </form>
-      <div>
-        <h1>Hello {name}, your sauce is ready.</h1>
-      </div>
+      {name ? (
+        <div>
+          <h1>Hello {name}, your sauce is ready.</h1>
+        </div>
+      ) : (
+        <div>
+          <h1>Please enter your name.</h1>
+        </div>
+      )}
     </div>
   );
 }
