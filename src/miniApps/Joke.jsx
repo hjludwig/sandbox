@@ -3,6 +3,9 @@ import React, { useState } from "react";
 const Joke = () => {
   const [joke, setJoke] = useState("");
   const [loading, setLoading] = useState(false);
+  const [key, setKey] = useState("");
+  const [showJoke, setshowJoke] = useState(false);
+  const secret = "poop";
 
   const fetchJoke = async () => {
     const url = "https://v2.jokeapi.dev/joke/Any";
@@ -13,10 +16,20 @@ const Joke = () => {
 
   const handleClick = () => {
     setLoading(true);
+    setshowJoke(false);
     fetchJoke().then((data) => {
       setJoke(data);
       setLoading(false);
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userGuess = e.target.elements.secret.value;
+    if (userGuess === secret) {
+      setshowJoke(true);
+    }
+    console.log("submitted", userGuess);
   };
 
   return (
@@ -29,8 +42,15 @@ const Joke = () => {
         <p>Loading...</p>
       ) : (
         <div>
-          {!joke.safe ? (
-            <p>This joke is a little off... pick another.</p>
+          {!joke.safe && !showJoke ? (
+            <div>
+              <p>This joke is a for grown ups only.</p>
+              <p>Enter the secret code to see the joke.</p>
+              <form onSubmit={handleSubmit}>
+                <input type="text" id="secret" />
+                <button type="submit">Submit</button>
+              </form>
+            </div>
           ) : joke.type === "single" ? (
             <p>{joke.joke}</p>
           ) : (
