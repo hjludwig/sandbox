@@ -4,8 +4,6 @@ const Joke = () => {
   const [joke, setJoke] = useState("");
   const [loading, setLoading] = useState(false);
   const [key, setKey] = useState("");
-  const [showJoke, setshowJoke] = useState(false);
-  const secret = "poop";
 
   const fetchJoke = async () => {
     const url = "https://v2.jokeapi.dev/joke/Any";
@@ -16,20 +14,11 @@ const Joke = () => {
 
   const handleClick = () => {
     setLoading(true);
-    setshowJoke(false);
+    // setshowJoke(false);
     fetchJoke().then((data) => {
       setJoke(data);
       setLoading(false);
     });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const userGuess = e.target.elements.secret.value;
-    if (userGuess === secret) {
-      setshowJoke(true);
-    }
-    console.log("submitted", userGuess);
   };
 
   return (
@@ -40,25 +29,63 @@ const Joke = () => {
       </button>
       {loading ? (
         <p>Loading...</p>
+      ) : joke.safe ? (
+        <SingleJoke joke={joke} />
+      ) : (
+        <GrownUpJoke joke={joke} />
+      )}
+    </div>
+  );
+};
+const GrownUpJoke = ({ joke }) => {
+  const [showJoke, setshowJoke] = useState(false);
+  const [guesses, setGuesses] = useState(0);
+  const secret = "12345";
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userGuess = e.target.elements.secret.value;
+    if (userGuess === secret) {
+      setshowJoke(true);
+    } else {
+      setGuesses(guesses + 1);
+    }
+  };
+  return (
+    <>
+      {showJoke ? (
+        <SingleJoke joke={joke} />
       ) : (
         <div>
-          {!joke.safe && !showJoke ? (
+          {guesses === 0 ? (
             <div>
               <p>This joke is a for grown ups only.</p>
               <p>Enter the secret code to see the joke.</p>
-              <form onSubmit={handleSubmit}>
-                <input type="text" id="secret" />
-                <button type="submit">Submit</button>
-              </form>
             </div>
-          ) : joke.type === "single" ? (
-            <p>{joke.joke}</p>
           ) : (
             <div>
-              <p>Q. {joke.setup}</p>
-              <p>A. {joke.delivery}</p>
+              <p>
+                That wasn't the password, try again or click for a new joke.
+              </p>
             </div>
           )}
+          <form onSubmit={handleSubmit}>
+            <input type="text" id="secret" />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      )}
+    </>
+  );
+};
+const SingleJoke = ({ joke }) => {
+  return (
+    <div>
+      {joke.type === "single" ? (
+        <p>{joke.joke}</p>
+      ) : (
+        <div>
+          <p>Q. {joke.setup}</p>
+          <p>A. {joke.delivery}</p>
         </div>
       )}
     </div>
