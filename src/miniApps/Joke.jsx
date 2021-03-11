@@ -3,7 +3,6 @@ import React, { useState } from "react";
 const Joke = () => {
   const [joke, setJoke] = useState("");
   const [loading, setLoading] = useState(false);
-  const [key, setKey] = useState("");
 
   const fetchJoke = async () => {
     const url = "https://v2.jokeapi.dev/joke/Any";
@@ -14,7 +13,6 @@ const Joke = () => {
 
   const handleClick = () => {
     setLoading(true);
-    // setshowJoke(false);
     fetchJoke().then((data) => {
       setJoke(data);
       setLoading(false);

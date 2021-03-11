@@ -3,6 +3,7 @@ import Joke from "./miniApps/Joke";
 import Sauce from "./miniApps/Sauce";
 import Weather from "./miniApps/Weather";
 import "./styles.css";
+import TodoList from "./todoList/TodoList";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Counter />
       <Weather />
       <Joke />
+      <TodoList />
     </div>
   );
 }
