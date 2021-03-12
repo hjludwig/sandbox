@@ -4,16 +4,24 @@ import NewTodoForm from "./NewTodoForm";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
+  const [value, setValue] = useState("");
+
+  const updateValue = (e) => {
+    setValue(e.target.value);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newTodo = e.target.elements.newTodo;
-    setTodos([...todos, newTodo.value]);
-    newTodo.value = "";
+    setTodos([...todos, value]);
+    setValue("");
   };
   return (
     <div className="mini-app">
       <h1>Your To Do List</h1>
-      <NewTodoForm handleSubmit={handleSubmit} />
+      <NewTodoForm
+        handleSubmit={handleSubmit}
+        value={value}
+        updateValue={updateValue}
+      />
       <List todos={todos} />
       <button type="button" onClick={() => setTodos([])}>
         Clear all
