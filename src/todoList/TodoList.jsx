@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
 import List from "./List";
 import NewTodoForm from "./NewTodoForm";
 
@@ -11,8 +12,20 @@ const TodoList = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTodos([...todos, value]);
+
+    const newTodo = {
+      text: value,
+      id: uuid()
+    };
+    console.log(newTodo);
+    setTodos([...todos, newTodo]);
     setValue("");
+  };
+
+  const deleteTodo = (id) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    console.log(todos, newTodos);
+    setTodos(newTodos);
   };
   return (
     <div className="mini-app">
@@ -22,7 +35,7 @@ const TodoList = () => {
         value={value}
         updateValue={updateValue}
       />
-      <List todos={todos} />
+      <List todos={todos} deleteTodo={deleteTodo} />
       <button type="button" onClick={() => setTodos([])}>
         Clear all
       </button>
