@@ -1,10 +1,12 @@
 import React from "react";
 import Todo from "./Todo";
 
-const List = () => {
+const List = ({ todos }) => {
   return (
     <div>
-      <Todo />
+      {todos.map((todo) => (
+        <Todo todo={todo} />
+      ))}
     </div>
   );
 };

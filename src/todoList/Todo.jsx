@@ -5,10 +5,10 @@ const todoStyles = {
   justifyContent: "space-between"
 };
 
-const Todo = () => {
+const Todo = ({ todo }) => {
   return (
     <div style={todoStyles}>
-      <p>A todo</p>
+      <p>{todo}</p>
       <div>
         <button type="button">Completed</button>
         <button type="button">Delete</button>
